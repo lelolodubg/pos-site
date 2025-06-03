@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Connexion POS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef1f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      width: 300px;
+    }
+    select, input[type="password"], button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    .message {
+      margin-top: 15px;
+      color: red;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Connexion POS</h2>
+    <select id="role">
+      <option value="">-- Rôle --</option>
+      <option value="caissier">Caissier</option>
+      <option value="manager">Manager</option>
+      <option value="owner">Propriétaire</option>
+      <option value="technicien">Technicien</option>
+    </select>
+    <input type="password" id="code" placeholder="Code secret">
+    <button onclick="login()">Connexion</button>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    const users = {
+      caissier: "1234",
+      manager: "2345",
+      owner: "0000",
+      technicien: "9876"
+    };
+
+    function login() {
+      const role = document.getElementById("role").value;
+      const code = document.getElementById("code").value;
+      const messageDiv = document.getElementById("message");
+
+      if (!role || !code) {
+        messageDiv.textContent = "Tous les champs sont requis.";
+        return;
+      }
+
+      if (users[role] === code) {
+        if (role === "caissier") {
+          window.location.href = "caissier.html";
+        } else {
+          messageDiv.style.color = "green";
+          messageDiv.textContent = `Bienvenue ${role.toUpperCase()}.`;
+        }
+      } else {
+        messageDiv.textContent = "Code incorrect.";
+      }
+    }
+  </script>
+</body>
+</html>
